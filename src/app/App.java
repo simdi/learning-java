@@ -15,6 +15,9 @@ public class App {
     }
 
     try {
+      if (chars.length < 10) {
+        throw new Exception("String out of bound!!!!");
+      }
       char lastChar = chars[chars.length - 1];
       System.out.println("Last character is: " + lastChar);
 
@@ -25,6 +28,8 @@ public class App {
       System.out.println("Array out of bound");
     } catch (StringIndexOutOfBoundsException e) {
       System.out.println("String out of bound");
+    } catch (Exception e) {
+      System.out.println("Error: " + e.getMessage());
     }
   }
 
