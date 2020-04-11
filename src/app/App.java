@@ -1,9 +1,13 @@
 package app;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +15,39 @@ import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 public class App {
+
+  private static void readDataFromNet() throws IOException {
+    final String FLOWER_FEED = "http://services.hanselandpetal.com/feeds/flowers.xml";
+
+    InputStream inputStream = null;
+    BufferedInputStream bufferedInputStream = null;
+    
+    try {
+      URL url = new URL(FLOWER_FEED);
+      inputStream = url.openStream();
+      bufferedInputStream = new BufferedInputStream(inputStream);
+  
+      StringBuilder sb = new StringBuilder();
+  
+      while (true) {
+        int data = bufferedInputStream.read();
+        if (data == -1) {
+          break;
+        } else {
+          System.out.println(data);
+          sb.append((char) data);
+        }
+      }
+
+      // System.out.println(sb);
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      inputStream.close();
+      bufferedInputStream.close();
+    }
+
+  }
 
   private static void readFileWithNewIO() {
     Path sourcePath = Paths.get("file", "text.txt");
@@ -125,6 +162,7 @@ public class App {
     // app.throwingExceptions();
 
     // readFile();
-    readFileWithNewIO();
+    // readFileWithNewIO();
+    readDataFromNet();
   }
 }
