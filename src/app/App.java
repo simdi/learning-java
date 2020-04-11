@@ -4,9 +4,26 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 public class App {
+
+  private static void readFileWithNewIO() {
+    Path sourcePath = Paths.get("file", "text.txt");
+    Path targetPath = Paths.get("file", "new_target.txt");
+
+    try {
+      Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+      System.out.println("File copied!");
+    } catch (Exception e) {
+      System.out.println("Error copying file");
+      e.printStackTrace();
+    }
+  }
 
   private static void readFile() {
     String sourceFile = "file/text.txt";
@@ -107,6 +124,7 @@ public class App {
     // app.simpleCalculator();
     // app.throwingExceptions();
 
-    readFile();
+    // readFile();
+    readFileWithNewIO();
   }
 }
