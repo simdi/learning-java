@@ -1,9 +1,37 @@
 package app;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class App {
+
+  private static void readFile() {
+    String sourceFile = "file/text.txt";
+    String targetFile = "file/target.txt";
+
+    // You use the try resource because you want to auto close io files.
+    try (
+      FileReader fileReader = new FileReader(sourceFile);
+      BufferedReader bufferedReader = new BufferedReader(fileReader);
+      FileWriter fileWriter = new FileWriter(targetFile)
+    ) {
+      while (true) {
+        String line = bufferedReader.readLine();
+        if (line == null) {
+          break;
+        } else {
+          fileWriter.write(line + "\n");
+        }
+      }
+      System.out.println("File copied!");
+    } catch (Exception e) {
+      System.out.println("There was an error reading or writing to file.");
+      e.printStackTrace();
+    }
+  }
 
   private void throwingExceptions() {
     String welcome = "Welcome!";
@@ -74,9 +102,11 @@ public class App {
     // BigDecimal bigDecimalSum = bigDecimal.add(bigDecimal).add(bigDecimal).add(bigDecimal);
     // System.out.println("BIg Decimal Sum: " + bigDecimalSum);
 
-    App app = new App();
+    // App app = new App();
     // app.collectUserInputAnPrint();
     // app.simpleCalculator();
-    app.throwingExceptions();
+    // app.throwingExceptions();
+
+    readFile();
   }
 }
