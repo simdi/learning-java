@@ -14,6 +14,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
+import app.di.Circle;
+import app.di.DrawShape;
+import app.di.Shape;
+import app.di.Triangle;
+
 public class App {
 
   private static void readDataFromNet() throws IOException {
@@ -163,6 +168,12 @@ public class App {
 
     // readFile();
     // readFileWithNewIO();
-    readDataFromNet();
+    // readDataFromNet();
+
+    // Dependency Injection
+    // Shape shape = new Triangle();
+    DrawShape drawShape = new DrawShape(new Circle());
+    drawShape.drawShape();
+
   }
 }
